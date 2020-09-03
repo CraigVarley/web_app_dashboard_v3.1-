@@ -271,6 +271,11 @@ main div {
 
 /* ------------------ RESPONSIVE GRAY BORDERS ----------------- */
 
+
+*:focus {
+    outline: none;
+}
+
 .daily-traffic-chart,
 .mobile-users,
 .social,
