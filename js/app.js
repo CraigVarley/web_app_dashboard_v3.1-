@@ -77,6 +77,7 @@ const profileButton = document.getElementById('profileSwitch');
 // save button listen variable
 const settings = document.getElementById('settings');
 const saveButton = settings.querySelector('#savebutton');
+const cancelButton = settings.querySelector('#cancelbutton');
 // save button event listener
 settings.addEventListener('click', (e) => {
     // listen for change if save clicked + upate local storage in browser
@@ -84,6 +85,11 @@ settings.addEventListener('click', (e) => {
         localStorage.setItem('email', emailButton.checked); // set email switch
         localStorage.setItem('profile', profileButton.checked); // set profile switch
         localStorage.setItem('timezone', timezone.options[timezone.selectedIndex].value); // set value of timezone 
+    }
+    if (e.target === cancelButton) {
+        localStorage.removeItem('email');
+        localStorage.removeItem('profile');
+        localStorage.removeItem('timezone');
     }
 });
 
@@ -94,11 +100,15 @@ function loadSettings() {
         let emailSetting = localStorage.getItem('email');
         let profileSetting = localStorage.getItem('profile');
         let timezoneSetting = localStorage.getItem('timezone');
-        // update values - GRR SOMETHING IS WRONG HERE ->
-        emailButton.value = emailSetting;
-        emailButton.classList.
-        profileButton.value = profileSetting;
+        // update values
+        emailButton.checked = JSON.parse(emailSetting);
+        profileButton.checked = JSON.parse(profileSetting);
         timezone.value = timezoneSetting;
+    }
+    else {
+        emailButton.checked = JSON.parse(false);
+        profileButton.checked = JSON.parse(false);
+        timezone.value = 'Select Timezone';
     }
 }
 
